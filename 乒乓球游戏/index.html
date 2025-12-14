@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>简易乒乓球（Pong）</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- 左侧设置栏 -->
+    <aside class="sidebar">
+      <h2>设置对局</h2>
+      <label>
+        局数（最好为奇数, 默认 3 局）：
+        <select id="bestOfSelect">
+          <option value="1">1 局（先 1 胜）</option>
+          <option value="3" selected>3 局（先 2 胜）</option>
+          <option value="5">5 局（先 3 胜）</option>
+          <option value="7">7 局（先 4 胜）</option>
+        </select>
+      </label>
+
+      <label>
+        胜利分数（默认 11 分）：
+        <input id="pointsToWin" type="number" min="1" max="50" value="11" />
+      </label>
+
+      <h3>难度选择</h3>
+      <div class="difficulty">
+        <button class="diff-btn" data-diff="easy">简单</button>
+        <button class="diff-btn active" data-diff="normal">容易</button>
+        <button class="diff-btn" data-diff="hard">困难</button>
+        <button class="diff-btn" data-diff="hell">地狱</button>
+      </div>
+
+      <div class="info">
+        <p>左侧球拍：鼠标或 ↑ ↓ 控制（鼠标优先）</p>
+        <p>右侧球拍由电脑（AI）控制</p>
+      </div>
+    </aside>
+
+    <!-- 主区域 -->
+    <main class="main">
+      <!-- 左上角控制按钮（开始 / 暂停 / 结束）-->
+      <div class="top-controls">
+        <button id="startBtn" class="control">开始</button>
+        <button id="pauseBtn" class="control" disabled>暂停</button>
+        <button id="endBtn" class="control" disabled>结束</button>
+      </div>
+
+      <div class="header">
+        <h1>简易乒乓球</h1>
+        <div id="matchScore" class="match-score">局分: <span id="leftMatch">0</span> - <span id="rightMatch">0</span></div>
+        <div id="scoreboard" class="scoreboard"><span id="leftScore">0</span> <span class="sep"> - </span> <span id="rightScore">0</span></div>
+      </div>
+
+      <div class="canvas-wrap">
+        <canvas id="game" width="900" height="520"></canvas>
+      </div>
+
+      <div class="footer">丢分后会重置球并短暂暂停发球。可用空格或点击画布立刻发球。</div>
+    </main>
+  </div>
+
+  <!-- 叠加层：初始 / 暂停 / 结算 -->
+  <div id="overlay" class="overlay visible">
+    <div class="overlay-inner" id="overlayInner">
+      <h2 id="overlayTitle">准备开始比赛</h2>
+      <p id="overlayDesc">请在左侧设置好局数、胜分与难度，按“开始”进入比赛。</p>
+      <div class="overlay-actions">
+        <button id="overlayStart" class="primary">开始</button>
+        <button id="overlayClose" class="secondary">退出</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 结算界面（比赛结束后显示） -->
+  <div id="resultOverlay" class="overlay hidden">
+    <div class="overlay-inner">
+      <h2 id="resultTitle"></h2>
+      <p id="resultDesc"></p>
+      <div class="overlay-actions">
+        <button id="retryBtn" class="primary">再挑战一次</button>
+        <button id="quitBtn" class="secondary">退出游戏</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
