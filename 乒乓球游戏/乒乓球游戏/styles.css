@@ -1,0 +1,54 @@
+/* 全局样式 */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+body { background: #071026; color: #e6eef8; min-height: 100vh; display: flex; align-items: stretch; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+
+/* 应用布局：左侧栏 + 主区 */
+.app { display: flex; width: 100%; max-width: 1200px; margin: 20px auto; gap: 18px; padding: 12px; }
+.sidebar { width: 260px; background: linear-gradient(180deg,#0e2540,#092235); border-radius: 8px; padding: 16px; box-shadow: 0 6px 18px rgba(0,0,0,0.6); color: #cfe9ff; }
+.sidebar h2 { margin-bottom: 10px; color: #dff3ff; }
+.sidebar label { display: block; margin-bottom: 10px; font-size: 13px; }
+.sidebar select, .sidebar input[type="number"] { width: 100%; padding: 6px 8px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); color: #008cff; }
+.difficulty { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+.diff-btn { padding: 8px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); color: #ffe8e8; cursor: pointer; user-select:none; -webkit-user-select:none; }
+.diff-btn.active { background: linear-gradient(180deg,#2b7bb0,#1b5f8a); box-shadow: 0 3px 10px rgba(18,74,110,0.45); }
+.info p { font-size: 12px; color: #bfe7ff; margin-top: 8px; }
+
+/* 主区 */
+.main { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; position: relative; }
+.top-controls { position: absolute; left: 8px; top: 8px; display: flex; gap: 6px; z-index: 10; }
+.control { padding: 8px 12px; border-radius: 6px; border: none; cursor: pointer; background: #2b5576; color: #fff; box-shadow: 0 3px 8px rgba(0,0,0,0.45); }
+.control:disabled { opacity: 0.5; cursor: not-allowed; }
+.header { margin-top: 8px; text-align: center; color: #d7ecff; }
+.header h1 { font-size: 18px; color: #dff3ff; }
+.scoreboard { font-size: 30px; margin-top: 6px; color: #fff; }
+.sep { opacity: 0.6; margin: 0 10px; }
+.match-score { font-size: 13px; color: #bfe7ff; margin-top: 4px; }
+
+/* 画布容器 */
+.canvas-wrap { background: linear-gradient(#071022,#0b1a2b); border: 3px solid #234a66; border-radius: 8px; padding: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; }
+canvas { display: block; background: linear-gradient(#071022, #07213a); border-radius: 4px; max-width:100%; height:auto; touch-action:none; -webkit-user-select:none; user-select:none; }
+
+/* 叠加层（初始 / 暂停 / 结算）*/
+.overlay { position: fixed; left: 0; top: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; z-index: 999; background: rgba(3,6,11,0.55); }
+.overlay.hidden { display: none; }
+.overlay.visible { display: flex; }
+.overlay-inner { background: linear-gradient(#0b2b40,#093042); color: #eaf7ff; padding: 22px 28px; border-radius: 10px; text-align: center; width: 360px; box-shadow: 0 10px 40px rgba(0,0,0,0.7); }
+.overlay-inner h2 { margin-bottom: 10px; font-size: 20px; }
+.overlay-inner p { margin-bottom: 14px; color: #cfe9ff; font-size: 14px; }
+.overlay-actions { display: flex; gap: 12px; justify-content: center; }
+button.primary { padding: 10px 14px; background: linear-gradient(180deg,#2b7bb0,#1b5f8a); border: none; color: #fff; border-radius: 8px; cursor: pointer; }
+button.secondary { padding: 10px 14px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.06); color: #dff3ff; border-radius: 8px; cursor: pointer; }
+
+/* 小屏优化 */
+@media (max-width: 900px) {
+  .app { flex-direction: column; padding: 8px; }
+  .sidebar { width: 100%; order: 2; }
+  .main { order: 1; }
+  .canvas-wrap { width: 100%; overflow: hidden; padding: 8px; }
+}
+
+/* 更小屏幕进一步优化画布显示 */
+@media (max-width: 420px) {
+  .top-controls { left: 6px; top: 6px; }
+  .overlay-inner { width: calc(100% - 32px); padding: 16px; }
+}
